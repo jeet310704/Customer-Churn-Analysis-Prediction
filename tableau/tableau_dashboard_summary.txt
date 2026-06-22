@@ -1,0 +1,121 @@
+CUSTOMER CHURN ANALYSIS DASHBOARD
+Phase 5: Tableau Dashboard Summary
+============================================================
+
+OVERVIEW
+--------
+This dashboard visualises customer churn patterns across a 700-customer
+dataset. It is designed to help business stakeholders answer key
+retention questions without needing to query raw data directly.
+
+Data source: tableau/customer_churn_tableau.csv (17 columns, 700 rows)
+Prepared by: scripts/prepare_tableau_data.py
+
+
+WHAT THE DASHBOARD SHOWS
+-------------------------
+1. Overall churn rate and key customer metrics (KPI row)
+2. Which contract types, payment methods, and internet services
+   are associated with the highest churn rates
+3. How churn varies across customer age and tenure groups
+4. Which customers are High Risk, Medium Risk, or Low Risk
+5. The relationship between monthly charges, support calls, and churn
+6. A drillable table of the highest-risk customer segment
+
+
+MAIN BUSINESS QUESTIONS ANSWERED
+----------------------------------
+Q1. What percentage of our customers are churning?
+    -> See KPI card: Churn Rate
+
+Q2. Are Month-to-Month customers more likely to churn than
+    customers on longer contracts?
+    -> See: Churn Rate by Contract Type (Row 2)
+
+Q3. Does payment method affect churn behaviour?
+    -> See: Churn Rate by Payment Method (Row 2)
+
+Q4. Are newer customers (low tenure) at higher risk?
+    -> See: Churn Rate by Tenure Group (Row 3)
+
+Q5. Which customer profile represents the highest churn risk?
+    -> See: Churn Rate by Risk Level + High-Risk Customer Table (Row 3-4)
+
+Q6. Do high monthly charges or frequent support calls predict churn?
+    -> See: Avg Monthly Charges by Churn + Support Calls vs Churn (Row 4)
+
+
+RECOMMENDED DASHBOARD LAYOUT
+------------------------------
+Row 1 (Top):    6 KPI cards - Total Customers, Churned, Churn Rate,
+                Avg Monthly Charges, Avg Tenure, Avg Support Calls
+
+Row 2 (Middle): 3 bar charts - Churn Rate by Contract Type,
+                Payment Method, Internet Service
+
+Row 3:          3 bar charts - Churn Rate by Tenure Group,
+                Age Group, Customer Risk Level
+
+Row 4 (Bottom): Avg Monthly Charges by Churn, Support Calls vs Churn,
+                High-Risk Customer Segment Table
+
+Filters (Side/Bottom):
+                Gender, Contract Type, Payment Method, Internet Service,
+                Age Group, Tenure Group, Customer Risk Level
+
+
+DASHBOARD-FRIENDLY COLUMNS ADDED
+----------------------------------
+Column                  Description
+---------               -----------
+churn_numeric           1 = churned, 0 = retained (enables AVG = churn rate)
+age_group               Age buckets: 18-25, 26-35, 36-45, 46-55, 56+
+tenure_group            Tenure buckets: 0-12, 13-24, 25-48, 49+ Months
+monthly_charge_group    Low (<$45), Medium ($45-$80), High (>$80)
+support_call_group      0-1 Calls, 2-3 Calls, 4+ Calls
+customer_risk_level     High / Medium / Low Risk (scored on 5 risk factors)
+
+
+RISK SCORING LOGIC (customer_risk_level)
+-----------------------------------------
+Each customer is scored 0-5 based on known churn risk factors:
+  +1  Month-to-Month contract
+  +1  Electronic Check payment method
+  +1  Monthly charges above $70
+  +1  4 or more support calls
+  +1  Tenure of 12 months or fewer
+
+  Score 3-5  =  High Risk
+  Score 1-2  =  Medium Risk
+  Score 0    =  Low Risk
+
+
+KEY INSIGHTS THE DASHBOARD SHOULD REVEAL
+------------------------------------------
+1. Overall churn rate is approximately 54% in this dataset.
+
+2. Month-to-Month customers churn at ~65% vs ~34% for Two Year
+   contract holders. Encouraging contract upgrades is a direct
+   retention lever.
+
+3. Electronic Check customers churn at ~66%, the highest of any
+   payment method. Offering auto-pay incentives could reduce churn.
+
+4. Customers in the 0-12 Month tenure group churn at the highest
+   rate, confirming that the first year is the critical retention window.
+
+5. High Risk customers churn at a significantly higher rate than
+   Medium or Low Risk customers, validating the risk scoring model.
+
+6. Churned customers pay on average ~$6 more per month than retained
+   customers, suggesting that high bills contribute to dissatisfaction.
+
+7. Customers who made 4 or more support calls are disproportionately
+   represented in the churned group.
+
+
+FILES IN THIS FOLDER
+---------------------
+customer_churn_tableau.csv      - Data source for the dashboard
+tableau_dashboard_guide.md      - Step-by-step chart and layout build guide
+tableau_dashboard_summary.txt   - This file

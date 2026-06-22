@@ -1,0 +1,174 @@
+CUSTOMER CHURN ANALYSIS & PREDICTION
+Final Project Summary
+============================================================
+Status: COMPLETE (All 6 Phases)
+============================================================
+
+
+WHAT WAS BUILT
+--------------
+An end-to-end customer churn analytics and prediction pipeline covering:
+- Synthetic dataset generation with realistic churn behaviour
+- Data cleaning, validation, and exploratory analysis
+- SQL database and 13 business analysis queries
+- Two machine learning models trained and evaluated
+- A Tableau-ready dataset with 6 engineered features
+- Professional GitHub documentation, resume bullets, and interview notes
+
+
+DATASET
+-------
+Raw dataset   : data/raw/customer_churn_raw.csv
+                700 rows, 11 columns, 0 missing values, 0 duplicates
+
+Cleaned dataset: data/processed/customer_churn_cleaned.csv
+                 700 rows, 11 columns, snake_case column names
+
+Tableau dataset: tableau/customer_churn_tableau.csv
+                 700 rows, 17 columns (6 new engineered columns)
+
+Overall churn rate: 54.0% (378 churned / 322 retained)
+
+
+MAIN FILES CREATED
+------------------
+
+Phase 1 - Data Generation
+  scripts/generate_churn_data.py
+  data/raw/customer_churn_raw.csv
+
+Phase 2 - Data Cleaning and EDA
+  scripts/clean_and_explore_churn_data.py
+  data/processed/customer_churn_cleaned.csv
+  reports/churn_eda_summary.txt
+
+Phase 3 - SQL Database and Analysis
+  scripts/create_churn_database.py
+  scripts/run_churn_sql_analysis.py
+  sql/customer_churn.db
+  sql/churn_analysis_queries.sql
+  reports/sql_churn_analysis_summary.txt
+
+Phase 4 - Machine Learning
+  scripts/build_churn_model.py
+  models/churn_prediction_model.pkl
+  models/model_features.pkl
+  reports/model_evaluation_report.txt
+
+Phase 5 - Tableau Preparation
+  scripts/prepare_tableau_data.py
+  tableau/customer_churn_tableau.csv
+  tableau/tableau_dashboard_guide.md
+  tableau/tableau_dashboard_summary.txt
+
+Phase 6 - Documentation
+  README.md (rewritten as professional GitHub README)
+  reports/resume_and_interview_notes.md
+  reports/final_project_summary.txt
+
+
+TOOLS USED
+----------
+Language    : Python 3
+Libraries   : Pandas, NumPy, Scikit-learn, SQLite3, Pickle
+SQL         : 13 queries (SQLite)
+ML models   : Logistic Regression (selected), Random Forest
+Visualise   : Tableau (dashboard prepared, built manually)
+Storage     : CSV files, SQLite .db, Pickle .pkl
+
+
+KEY FINDINGS FROM THE ANALYSIS
+-------------------------------
+1. Overall churn rate: 54.0%
+
+2. Churn by contract type:
+   - Month-to-Month : 65.37%
+   - One Year       : 44.44%
+   - Two Year       : 33.83%
+
+3. Churn by payment method:
+   - Electronic Check : 66.12%
+   - Mailed Check     : 48.84%
+   - Bank Transfer    : 49.31%
+   - Credit Card      : 43.88%
+
+4. Highest-risk segment (SQL Q11):
+   Month-to-Month + Electronic Check + Fiber Optic = 84.38% churn rate
+
+5. Average monthly charge difference:
+   Churned: $68.47 vs Retained: $62.20 (difference of $6.27/month)
+
+6. Average tenure difference:
+   Churned: 34.4 months vs Retained: 37.9 months
+
+7. Average support calls difference:
+   Churned: 5.54 calls vs Retained: 4.72 calls
+
+8. Customer risk segmentation:
+   High Risk  : 72.2% churn rate (263 customers)
+   Medium Risk: 45.8% churn rate (408 customers)
+   Low Risk   :  3.4% churn rate  (29 customers)
+
+
+MACHINE LEARNING RESULTS
+------------------------
+Model               Accuracy   Precision   Recall   F1-Score
+----------------------------------------------------------
+Logistic Regression  51.43%     54.76%     60.53%    57.50%
+Random Forest        48.57%     52.63%     52.63%    52.63%
+
+Selected model: Logistic Regression
+Reason: Higher Recall (60.53%) — the most important metric for
+        churn prediction, where missing a churner costs more than
+        a false alarm.
+
+Top predictive features (Random Forest importances):
+  1. monthly_charges    17.47%
+  2. total_charges      15.83%
+  3. tenure             14.67%
+  4. age                13.78%
+  5. support_calls      12.95%
+
+
+BUSINESS RECOMMENDATIONS
+-------------------------
+1. Offer retention discounts to Month-to-Month customers —
+   this is the highest-impact segment (65% churn rate).
+
+2. Incentivise Electronic Check customers to switch to auto-pay —
+   this payment method has a 66% churn rate.
+
+3. Improve support experience for high-call-volume customers —
+   those with 4+ calls are disproportionately likely to churn.
+
+4. Focus onboarding resources on the first 12 months —
+   new customers on Month-to-Month contracts are the highest flight risk.
+
+5. Use model predictions to prioritise the retention team's outreach
+   by targeting customers with the highest predicted churn probability.
+
+6. Proactively engage customers paying more than $80/month —
+   this group has a 62.7% churn rate and represents high revenue at risk.
+
+
+BUSINESS VALUE
+--------------
+This project demonstrates the skills needed to:
+- Turn raw business data into actionable insights
+- Write clean, reproducible Python data pipelines
+- Use SQL to answer structured business questions
+- Build and evaluate a predictive model with sound metric reasoning
+- Present findings in a format accessible to non-technical stakeholders
+
+In a real business context, a churn rate reduction of even 5 percentage
+points across a 700-customer base would mean retaining an additional 35
+customers — each generating several thousand dollars in lifetime value.
+
+
+FINAL PROJECT STATUS
+--------------------
+All 6 phases complete.
+All scripts run from the project root without errors.
+All output files saved to their correct folders.
+README.md is professional and portfolio-ready.
+Resume bullets and interview notes are ready to use.

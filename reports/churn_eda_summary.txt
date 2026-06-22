@@ -1,0 +1,192 @@
+CUSTOMER CHURN ANALYSIS - EDA SUMMARY REPORT
+Phase 2: Data Cleaning & Exploration
+============================================================
+
+Loading raw dataset...
+Raw file loaded from: data\raw\customer_churn_raw.csv
+
+============================================================
+  DATA QUALITY CHECKS
+============================================================
+Shape (rows, columns): (700, 11)
+
+Column names:
+  Customer ID
+  Gender
+  Age
+  Tenure
+  Contract Type
+  Payment Method
+  Monthly Charges
+  Total Charges
+  Support Calls
+  Internet Service
+  Churn
+
+Data types:
+Customer ID             str
+Gender                  str
+Age                   int64
+Tenure                int64
+Contract Type           str
+Payment Method          str
+Monthly Charges     float64
+Total Charges       float64
+Support Calls         int64
+Internet Service        str
+Churn                   str
+
+Missing values per column:
+Customer ID         0
+Gender              0
+Age                 0
+Tenure              0
+Contract Type       0
+Payment Method      0
+Monthly Charges     0
+Total Charges       0
+Support Calls       0
+Internet Service    0
+Churn               0
+
+Total missing values: 0
+Duplicate rows found: 0
+
+Unique values - categorical columns:
+  Gender: ['Female', 'Male']
+  Contract Type: ['Month-to-Month', 'One Year', 'Two Year']
+  Payment Method: ['Bank Transfer', 'Credit Card', 'Electronic Check', 'Mailed Check']
+  Internet Service: ['DSL', 'Fiber Optic', 'No Internet']
+  Churn: ['No', 'Yes']
+
+Basic statistics - numeric columns:
+          Age  Tenure  Monthly Charges  Total Charges  Support Calls
+count  700.00  700.00           700.00         700.00         700.00
+mean    43.80   36.04            65.58        2234.87           5.16
+std     15.38   20.49            25.75        1611.62           3.11
+min     18.00    1.00            20.00          17.74           0.00
+25%     30.00   18.00            43.16         904.96           2.00
+50%     44.00   36.00            66.93        1878.50           5.00
+75%     56.00   54.00            86.82        3215.26           8.00
+max     70.00   72.00           109.90        7598.18          10.00
+
+============================================================
+  DATA CLEANING
+============================================================
+Duplicate rows removed: 0
+Rows remaining after deduplication: 700
+
+Columns renamed to snake_case:
+  'Customer ID'  ->  'customer_id'
+  'Gender'  ->  'gender'
+  'Age'  ->  'age'
+  'Tenure'  ->  'tenure'
+  'Contract Type'  ->  'contract_type'
+  'Payment Method'  ->  'payment_method'
+  'Monthly Charges'  ->  'monthly_charges'
+  'Total Charges'  ->  'total_charges'
+  'Support Calls'  ->  'support_calls'
+  'Internet Service'  ->  'internet_service'
+  'Churn'  ->  'churn'
+
+New column names confirmed:
+['customer_id', 'gender', 'age', 'tenure', 'contract_type', 'payment_method', 'monthly_charges', 'total_charges', 'support_calls', 'internet_service', 'churn']
+
+============================================================
+  DATA VALIDATION
+============================================================
+Invalid age values (outside 1-120): 0
+Invalid tenure values (< 1 month): 0
+Invalid monthly_charges (<= 0): 0
+Invalid total_charges (<= 0): 0
+Invalid support_calls (< 0): 0
+Invalid churn values (not Yes/No): 0
+
+Validation result: PASSED - no data issues found.
+
+============================================================
+  CHURN EXPLORATION
+============================================================
+--- Overall Churn ---
+       Count  Percentage (%)
+churn                       
+Yes      378            54.0
+No       322            46.0
+
+--- Churn by Gender ---
+gender churn  Churn %
+Female   Yes    54.10
+Female    No    45.90
+  Male   Yes    53.89
+  Male    No    46.11
+
+--- Churn by Contract Type ---
+ contract_type churn  Churn %
+Month-to-Month   Yes    65.37
+Month-to-Month    No    34.63
+      One Year    No    55.56
+      One Year   Yes    44.44
+      Two Year    No    66.17
+      Two Year   Yes    33.83
+
+--- Churn by Payment Method ---
+  payment_method churn  Churn %
+   Bank Transfer    No    50.69
+   Bank Transfer   Yes    49.31
+     Credit Card    No    56.12
+     Credit Card   Yes    43.88
+Electronic Check   Yes    66.12
+Electronic Check    No    33.88
+    Mailed Check    No    51.16
+    Mailed Check   Yes    48.84
+
+--- Churn by Internet Service ---
+internet_service churn  Churn %
+             DSL   Yes    54.40
+             DSL    No    45.60
+     Fiber Optic   Yes    55.95
+     Fiber Optic    No    44.05
+     No Internet    No    51.08
+     No Internet   Yes    48.92
+
+--- Average Monthly Charges by Churn ---
+churn
+No     62.20
+Yes    68.47
+
+--- Average Tenure by Churn ---
+churn
+No     37.93
+Yes    34.43
+
+--- Average Support Calls by Churn ---
+churn
+No     4.72
+Yes    5.54
+
+============================================================
+  KEY INSIGHTS
+============================================================
+Total customers         : 700
+Churned customers       : 378 (54.0%)
+Retained customers      : 322 (46.0%)
+
+Avg monthly charge - churned   : $68.47
+Avg monthly charge - retained  : $62.2
+
+Avg tenure - churned           : 34.4 months
+Avg tenure - retained          : 37.9 months
+
+Avg support calls - churned    : 5.54
+Avg support calls - retained   : 4.72
+
+Most common contract for churned customers  : Month-to-Month
+Most common payment method for churned customers : Electronic Check
+
+============================================================
+  SAVING OUTPUTS
+============================================================
+Cleaned dataset saved  -> data\processed\customer_churn_cleaned.csv
+  Rows    : 700
+  Columns : 11
+  Columns : ['customer_id', 'gender', 'age', 'tenure', 'contract_type', 'payment_method', 'monthly_charges', 'total_charges', 'support_calls', 'internet_service', 'churn']

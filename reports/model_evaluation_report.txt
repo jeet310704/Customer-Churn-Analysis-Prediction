@@ -1,0 +1,153 @@
+CUSTOMER CHURN ANALYSIS - MODEL EVALUATION REPORT
+Phase 4: Machine Learning - Churn Prediction
+============================================================
+
+
+============================================================
+  STEP 1 - LOAD DATA
+============================================================
+Dataset loaded from: data\processed\customer_churn_cleaned.csv
+Shape: (700, 11)
+
+============================================================
+  STEP 2 - PREPARE FEATURES AND TARGET
+============================================================
+Target column (churn): Yes=1, No=0
+Churn value counts after encoding:
+churn
+1    378
+0    322
+
+Numeric features  : ['age', 'tenure', 'monthly_charges', 'total_charges', 'support_calls']
+Categorical features: ['gender', 'contract_type', 'payment_method', 'internet_service']
+
+Total features after one-hot encoding: 13
+Feature columns:
+  age
+  tenure
+  monthly_charges
+  total_charges
+  support_calls
+  gender_Male
+  contract_type_One Year
+  contract_type_Two Year
+  payment_method_Credit Card
+  payment_method_Electronic Check
+  payment_method_Mailed Check
+  internet_service_Fiber Optic
+  internet_service_No Internet
+
+============================================================
+  STEP 3 - TRAIN / TEST SPLIT
+============================================================
+Total samples  : 700
+Training set   : 560 rows (80%)
+Test set       : 140 rows (20%)
+Train churn rate: 53.93%
+Test  churn rate: 54.29%
+
+============================================================
+  STEP 4 - MODEL 1: LOGISTIC REGRESSION
+============================================================
+Logistic Regression Results:
+  Accuracy  : 51.43%
+  Precision : 54.76%
+  Recall    : 60.53%  <- how many churners we caught
+  F1-Score  : 57.5%
+
+Confusion Matrix (Logistic Regression):
+  Predicted No  | Predicted Yes
+  Actual No  : 26        | 38
+  Actual Yes : 30        | 46
+
+Classification Report (Logistic Regression):
+              precision    recall  f1-score   support
+
+    No Churn       0.46      0.41      0.43        64
+       Churn       0.55      0.61      0.57        76
+
+    accuracy                           0.51       140
+   macro avg       0.51      0.51      0.50       140
+weighted avg       0.51      0.51      0.51       140
+
+
+============================================================
+  STEP 5 - MODEL 2: RANDOM FOREST CLASSIFIER
+============================================================
+Random Forest Results:
+  Accuracy  : 48.57%
+  Precision : 52.63%
+  Recall    : 52.63%  <- how many churners we caught
+  F1-Score  : 52.63%
+
+Confusion Matrix (Random Forest):
+  Predicted No  | Predicted Yes
+  Actual No  : 28        | 36
+  Actual Yes : 36        | 40
+
+Classification Report (Random Forest):
+              precision    recall  f1-score   support
+
+    No Churn       0.44      0.44      0.44        64
+       Churn       0.53      0.53      0.53        76
+
+    accuracy                           0.49       140
+   macro avg       0.48      0.48      0.48       140
+weighted avg       0.49      0.49      0.49       140
+
+
+============================================================
+  STEP 6 - FEATURE IMPORTANCES (RANDOM FOREST)
+============================================================
+Top 10 features by importance:
+  monthly_charges                    17.47%
+  total_charges                      15.83%
+  tenure                             14.67%
+  age                                13.78%
+  support_calls                      12.95%
+  contract_type_Two Year             5.75%
+  contract_type_One Year             3.69%
+  payment_method_Electronic Check    3.42%
+  gender_Male                        2.86%
+  internet_service_Fiber Optic       2.65%
+
+============================================================
+  STEP 7 - MODEL COMPARISON AND SELECTION
+============================================================
+Metric comparison:
+  Metric        Logistic Regression     Random Forest
+  ----------------------------------------------------
+  Accuracy      51.43                   48.57
+  Precision     54.76                   52.63
+  Recall        60.53                   52.63
+  F1-Score      57.5                    52.63
+
+Selection reasoning:
+  In churn prediction, Recall is the most important metric.
+  Missing a customer who will churn (false negative) is more costly
+  than a false alarm (false positive).
+
+SELECTED MODEL: Logistic Regression
+  Recall  : 60.53% (vs 52.63% for Random Forest Classifier)
+  F1-Score: 57.5% (vs 52.63% for Random Forest Classifier)
+
+============================================================
+  STEP 8 - SAVE MODEL AND FEATURES
+============================================================
+Best model saved    -> models\churn_prediction_model.pkl
+Feature columns saved -> models\model_features.pkl
+Feature count: 13
+
+============================================================
+  STEP 9 - PREDICTION DEMO
+============================================================
+Loading saved model and making a test prediction...
+Sample customer profile:
+  Age: 28 | Tenure: 4 months | Monthly Charges: $95 | Support Calls: 7
+  Contract: Month-to-Month | Payment: Electronic Check | Internet: Fiber Optic
+Prediction  : YES - Will Churn
+Probability : No Churn=17.0% | Churn=83.0%
+
+============================================================
+  SAVING REPORT
+============================================================

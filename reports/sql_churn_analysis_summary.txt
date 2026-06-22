@@ -1,0 +1,264 @@
+CUSTOMER CHURN ANALYSIS - SQL ANALYSIS SUMMARY REPORT
+Phase 3: SQL Database and Queries
+============================================================
+
+Connected to: sql\customer_churn.db
+
+============================================================
+  SECTION 1 - CUSTOMER OVERVIEW
+============================================================
+
+--- Q1. Total number of customers ---
+ total_customers
+             700
+
+--- Q2. Total churned customers ---
+ total_churned
+           378
+
+--- Q3. Overall churn rate (%) ---
+ churn_rate_pct
+           54.0
+
+============================================================
+  SECTION 2 - CHURN BY CATEGORY
+============================================================
+
+--- Q4. Churn by gender ---
+gender  total  churned  churn_rate_pct
+Female    366      198           54.10
+  Male    334      180           53.89
+
+--- Q5. Churn by contract type ---
+ contract_type  total  churned  churn_rate_pct
+Month-to-Month    387      253           65.37
+      One Year    180       80           44.44
+      Two Year    133       45           33.83
+
+--- Q6. Churn by payment method ---
+  payment_method  total  churned  churn_rate_pct
+Electronic Check    245      162           66.12
+   Bank Transfer    144       71           49.31
+    Mailed Check    172       84           48.84
+     Credit Card    139       61           43.88
+
+--- Q7. Churn by internet service ---
+internet_service  total  churned  churn_rate_pct
+     Fiber Optic    311      174           55.95
+             DSL    250      136           54.40
+     No Internet    139       68           48.92
+
+============================================================
+  SECTION 3 - AVERAGE METRICS BY CHURN STATUS
+============================================================
+
+--- Q8. Average monthly charges by churn status ---
+churn  avg_monthly_charges
+   No                62.20
+  Yes                68.47
+
+--- Q9. Average tenure by churn status ---
+churn  avg_tenure_months
+   No              37.93
+  Yes              34.43
+
+--- Q10. Average support calls by churn status ---
+churn  avg_support_calls
+   No               4.72
+  Yes               5.54
+
+============================================================
+  SECTION 4 - HIGH-RISK SEGMENTS AND AT-RISK CUSTOMERS
+============================================================
+
+--- Q11. Top 10 high-risk customer segments (by contract, payment, internet) ---
+ contract_type   payment_method internet_service  total  churned  churn_rate_pct
+Month-to-Month Electronic Check      Fiber Optic     64       54           84.38
+Month-to-Month Electronic Check              DSL     52       38           73.08
+Month-to-Month Electronic Check      No Internet     25       18           72.00
+Month-to-Month     Mailed Check      No Internet     21       14           66.67
+Month-to-Month     Mailed Check      Fiber Optic     42       27           64.29
+Month-to-Month    Bank Transfer      Fiber Optic     40       25           62.50
+Month-to-Month      Credit Card      No Internet     13        8           61.54
+      One Year Electronic Check              DSL     23       14           60.87
+      One Year    Bank Transfer      Fiber Optic     19       11           57.89
+Month-to-Month     Mailed Check              DSL     33       19           57.58
+
+--- Q12. High-value at-risk customers (monthly charges > $80 AND support calls > 6) ---
+customer_id  monthly_charges  support_calls  tenure  contract_type churn
+  CUST-0620           109.79              7      60       One Year   Yes
+  CUST-0514           109.75              9      59 Month-to-Month   Yes
+  CUST-0608           109.65              7      72       One Year    No
+  CUST-0656           109.61              8       4 Month-to-Month   Yes
+  CUST-0011           108.31             10      36       One Year   Yes
+  CUST-0657           108.30             10      20       Two Year    No
+  CUST-0250           108.23              9      12 Month-to-Month   Yes
+  CUST-0176           108.07              9      14 Month-to-Month   Yes
+  CUST-0309           107.93             10      66 Month-to-Month   Yes
+  CUST-0119           107.58              8       3       One Year   Yes
+  CUST-0126           107.02             10       7 Month-to-Month   Yes
+  CUST-0450           106.39              7      31 Month-to-Month    No
+  CUST-0405           105.75             10       5 Month-to-Month   Yes
+  CUST-0151           105.70             10      23 Month-to-Month   Yes
+  CUST-0056           105.58              7       9 Month-to-Month   Yes
+  CUST-0181           105.24              7      22       One Year   Yes
+  CUST-0289           105.21              9      59 Month-to-Month   Yes
+  CUST-0084           105.18              8      28       One Year    No
+  CUST-0292           105.03              7      31       One Year    No
+  CUST-0409           104.70              7      37       One Year   Yes
+  CUST-0369           104.27              9      41       Two Year    No
+  CUST-0162           103.96              9      11       One Year    No
+  CUST-0379           103.44              7      61       One Year   Yes
+  CUST-0696           102.92              7       5       Two Year   Yes
+  CUST-0167           102.89             10       5 Month-to-Month   Yes
+  CUST-0048           102.76              9      63 Month-to-Month    No
+  CUST-0315           102.31             10      13 Month-to-Month   Yes
+  CUST-0219           101.55             10      21 Month-to-Month   Yes
+  CUST-0501           101.16              9      39       One Year    No
+  CUST-0438           100.18             10       7 Month-to-Month   Yes
+  CUST-0553           100.02              9      15 Month-to-Month   Yes
+  CUST-0605            99.93              8      32       One Year    No
+  CUST-0294            99.47              8      60       Two Year    No
+  CUST-0496            99.43              8      26       One Year    No
+  CUST-0461            98.35             10      35       Two Year    No
+  CUST-0641            97.80             10      59 Month-to-Month   Yes
+  CUST-0038            96.32             10      41       Two Year   Yes
+  CUST-0610            96.04              9      62 Month-to-Month   Yes
+  CUST-0489            95.90              9      29       One Year    No
+  CUST-0306            95.58             10      33 Month-to-Month   Yes
+  CUST-0189            95.51              9      42 Month-to-Month   Yes
+  CUST-0342            95.46             10      65       One Year   Yes
+  CUST-0418            95.41              8      67       One Year   Yes
+  CUST-0487            95.25             10      52       One Year    No
+  CUST-0218            94.95              9      29 Month-to-Month   Yes
+  CUST-0609            94.29             10      50       Two Year    No
+  CUST-0571            93.96              8      32       One Year   Yes
+  CUST-0196            93.54              8      27 Month-to-Month   Yes
+  CUST-0135            93.51             10      51 Month-to-Month   Yes
+  CUST-0101            92.98              8      49 Month-to-Month   Yes
+  CUST-0500            92.32              8      13 Month-to-Month   Yes
+  CUST-0688            92.25              8      60       Two Year   Yes
+  CUST-0573            91.66              8      45 Month-to-Month   Yes
+  CUST-0477            91.35              7      17       Two Year    No
+  CUST-0402            91.04              8      59 Month-to-Month    No
+  CUST-0627            90.54             10      19 Month-to-Month   Yes
+  CUST-0588            90.02              7       2       Two Year   Yes
+  CUST-0028            89.45              8      43       Two Year   Yes
+  CUST-0105            89.40             10      40 Month-to-Month   Yes
+  CUST-0535            88.99              7      60       One Year   Yes
+  CUST-0051            88.49              7      40 Month-to-Month   Yes
+  CUST-0157            88.31             10       2       Two Year    No
+  CUST-0019            88.16              7       6       Two Year    No
+  CUST-0538            87.66              7      53 Month-to-Month   Yes
+  CUST-0420            87.35              8      40 Month-to-Month   Yes
+  CUST-0314            87.35              7      13 Month-to-Month   Yes
+  CUST-0617            87.34              9      26 Month-to-Month   Yes
+  CUST-0349            86.86              7      37 Month-to-Month   Yes
+  CUST-0350            86.41              8      61 Month-to-Month    No
+  CUST-0039            85.60             10      11 Month-to-Month   Yes
+  CUST-0431            84.69              8      45       One Year   Yes
+  CUST-0201            84.66             10      12 Month-to-Month   Yes
+  CUST-0022            84.65              9      47       Two Year    No
+  CUST-0156            84.30             10      60 Month-to-Month   Yes
+  CUST-0325            84.26              7      56       One Year    No
+  CUST-0003            84.06              8       5 Month-to-Month   Yes
+  CUST-0647            83.67              8      63       One Year    No
+  CUST-0283            83.60              8       9 Month-to-Month   Yes
+  CUST-0365            83.49             10      20 Month-to-Month   Yes
+  CUST-0678            83.46              7       8       One Year   Yes
+  CUST-0258            83.41              9      55       One Year    No
+  CUST-0191            83.33              9      38       One Year   Yes
+  CUST-0178            83.11              9      40 Month-to-Month    No
+  CUST-0592            82.91              9      26       Two Year   Yes
+  CUST-0164            82.75              8      67       One Year   Yes
+  CUST-0104            82.43              9      16 Month-to-Month    No
+  CUST-0298            81.21              9      43       Two Year    No
+  CUST-0417            80.92             10      58 Month-to-Month   Yes
+  CUST-0221            80.66             10      40 Month-to-Month   Yes
+  CUST-0241            80.43              8      61 Month-to-Month    No
+  CUST-0542            80.40              9      50 Month-to-Month   Yes
+  CUST-0680            80.10              8      44 Month-to-Month   Yes
+
+--- Q13. New customers on Month-to-Month contracts (tenure <= 12 months) ---
+customer_id  tenure  contract_type  monthly_charges  support_calls churn
+  CUST-0115       1 Month-to-Month            20.00              5   Yes
+  CUST-0520       1 Month-to-Month            26.18              4   Yes
+  CUST-0158       1 Month-to-Month            29.23              3    No
+  CUST-0047       1 Month-to-Month            55.81              0   Yes
+  CUST-0240       1 Month-to-Month            77.76              0   Yes
+  CUST-0211       2 Month-to-Month            46.10             10   Yes
+  CUST-0562       2 Month-to-Month            41.74             10   Yes
+  CUST-0682       2 Month-to-Month            35.28              7   Yes
+  CUST-0506       2 Month-to-Month            68.76              3   Yes
+  CUST-0690       2 Month-to-Month            68.23              1   Yes
+  CUST-0332       3 Month-to-Month            39.30              5   Yes
+  CUST-0370       3 Month-to-Month            25.76              2   Yes
+  CUST-0672       3 Month-to-Month            78.38              1   Yes
+  CUST-0303       4 Month-to-Month            60.52             10   Yes
+  CUST-0362       4 Month-to-Month            60.89             10   Yes
+  CUST-0499       4 Month-to-Month            54.90              8   Yes
+  CUST-0656       4 Month-to-Month           109.61              8   Yes
+  CUST-0182       4 Month-to-Month            64.66              7   Yes
+  CUST-0114       4 Month-to-Month            88.90              6   Yes
+  CUST-0613       4 Month-to-Month            26.05              2   Yes
+  CUST-0167       5 Month-to-Month           102.89             10   Yes
+  CUST-0405       5 Month-to-Month           105.75             10   Yes
+  CUST-0003       5 Month-to-Month            84.06              8   Yes
+  CUST-0439       5 Month-to-Month            41.74              8    No
+  CUST-0030       5 Month-to-Month            21.09              7   Yes
+  CUST-0373       5 Month-to-Month            59.95              7    No
+  CUST-0329       5 Month-to-Month            86.49              4   Yes
+  CUST-0372       5 Month-to-Month            46.31              2   Yes
+  CUST-0614       6 Month-to-Month            28.54             10   Yes
+  CUST-0604       6 Month-to-Month           100.81              5   Yes
+  CUST-0371       6 Month-to-Month            94.23              1   Yes
+  CUST-0126       7 Month-to-Month           107.02             10   Yes
+  CUST-0438       7 Month-to-Month           100.18             10   Yes
+  CUST-0648       7 Month-to-Month            55.03             10   Yes
+  CUST-0488       7 Month-to-Month            93.92              6   Yes
+  CUST-0149       7 Month-to-Month            90.26              3    No
+  CUST-0148       7 Month-to-Month            35.06              1   Yes
+  CUST-0612       7 Month-to-Month            71.90              1    No
+  CUST-0576       8 Month-to-Month            43.77              6   Yes
+  CUST-0136       8 Month-to-Month            36.35              5   Yes
+  CUST-0002       8 Month-to-Month           109.53              3   Yes
+  CUST-0127       8 Month-to-Month            40.19              3    No
+  CUST-0116       8 Month-to-Month            57.49              0    No
+  CUST-0283       9 Month-to-Month            83.60              8   Yes
+  CUST-0056       9 Month-to-Month           105.58              7   Yes
+  CUST-0034       9 Month-to-Month            40.58              6    No
+  CUST-0393       9 Month-to-Month            29.94              6   Yes
+  CUST-0377       9 Month-to-Month            25.06              5   Yes
+  CUST-0170       9 Month-to-Month            97.55              1   Yes
+  CUST-0274      10 Month-to-Month            28.29              6   Yes
+  CUST-0326      10 Month-to-Month            28.23              5    No
+  CUST-0039      11 Month-to-Month            85.60             10   Yes
+  CUST-0490      11 Month-to-Month            63.66              9   Yes
+  CUST-0357      11 Month-to-Month            44.20              7   Yes
+  CUST-0401      11 Month-to-Month            94.57              4   Yes
+  CUST-0564      11 Month-to-Month            58.24              3   Yes
+  CUST-0222      11 Month-to-Month            24.67              1   Yes
+  CUST-0201      12 Month-to-Month            84.66             10   Yes
+  CUST-0622      12 Month-to-Month            23.63             10    No
+  CUST-0250      12 Month-to-Month           108.23              9   Yes
+  CUST-0267      12 Month-to-Month            79.11              9    No
+  CUST-0347      12 Month-to-Month            38.03              9    No
+  CUST-0623      12 Month-to-Month            57.01              7    No
+  CUST-0024      12 Month-to-Month            77.66              2   Yes
+  CUST-0452      12 Month-to-Month            70.12              1    No
+  CUST-0475      12 Month-to-Month            57.73              0    No
+
+============================================================
+  SECTION 5 - KEY BUSINESS INSIGHTS
+============================================================
+1. Overall churn rate is 54.0% (378 of 700 customers).
+2. Month-to-Month contracts have the highest churn rate at 65.37%.
+3. Electronic Check is the riskiest payment method with a 66.12% churn rate.
+4. Churned customers pay $68.47/mo on average vs $62.2/mo for retained customers.
+5. Churned customers have an average tenure of 34.4 months vs 37.9 months for retained.
+6. 63 high-value customers (charges > $80, calls > 6) have already churned.
+7. 51 new Month-to-Month customers (tenure <= 12 months) have churned - a key retention target.
+
+============================================================
+  SAVING REPORT
+============================================================
